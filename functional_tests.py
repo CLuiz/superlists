@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 
@@ -21,8 +22,8 @@ class NewVisitorTest(unittest.TestCase):
 
         # You are invite to enter a to-do item right away
         inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertEqual(inputbox.get_attribute('placeholder',
-                                                'Enter a to do item'))
+        self.assertEqual(inputbox.get_attribute('placeholder'),
+                                                'Enter a to-do item')
 
         # Type buy peacock feathers into a text box
         inputbox.send_keys('Buy peacock feathers')
