@@ -11,7 +11,7 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_can_start_a_list_and_retrive_it_later(self):
+    def test_can_start_a_list_and_retrieve_it_later(self):
         # Lets check out the new to-do web app!
         self.browser.get('http://localhost:8000')
 
@@ -30,14 +30,22 @@ class NewVisitorTest(unittest.TestCase):
 
         # Hit enter, the page updates, and the page lists #1: buy peacock feathers
         inputbox.send_keys(Keys.ENTER)
-
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(any(row.text == '1: Buy peacock feathers' for row in rows),
-                        'New to-do item did not appear in table')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
         # There is still a text box inviting addition of another item
-        # Enter, use peacock feathers to fly
+        # Enter, use peacock feathers to make a fly
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        import time
+        time.sleep(10)
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
         self.fail('Finish the test')
 
         # The page updates and both list items are shown
