@@ -32,12 +32,13 @@ class NewVisitorTest(unittest.TestCase):
 
         # Type buy peacock feathers into a text box
         inputbox.send_keys('Buy peacock feathers')
-
         # Hit enter, the page updates, and the page lists #1: buy peacock feathers
         inputbox.send_keys(Keys.ENTER)
 
-        #table = self.browser.find_element_by_id('id_list_table')
-        #rows = table.find_elements_by_tag_name('tr')
+        table = self.browser.find_element_by_id('id_list_table')
+        import time
+        time.sleep(5)
+        rows = table.find_elements_by_tag_name('tr')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # There is still a text box inviting addition of another item
@@ -46,7 +47,7 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
         import time
-        time.sleep(1)
+        time.sleep(2)
         #table = self.browser.find_element_by_id('id_list_table')
         #rows = table.find_elements_by_tag_name('tr')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
